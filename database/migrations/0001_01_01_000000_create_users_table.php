@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('utype')->default('USR')->comment('ADM for Admin And USR For User or Customer');
+            $table->string('mobile')->unique();
             $table->rememberToken();
             $table->timestamps();
         });
