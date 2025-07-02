@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="main-content">
-
     <div class="main-content-inner">
         <div class="main-content-wrap">
             <div class="flex items-center flex-wrap justify-between gap20 mb-27">
@@ -71,7 +69,7 @@
                                     <td><a href="#" target="_blank">0</a></td>
                                     <td>
                                         <div class="list-icon-function">
-                                            <a href="#">
+                                            <a href="{{ route('admin.brand.edit',['id'=> $brand->id])}}">
                                                 <div class="item edit">
                                                     <i class="icon-edit-3"></i>
                                                 </div>
@@ -96,6 +94,4 @@
             </div>
         </div>
     </div>
-</div>
-
 @endsection

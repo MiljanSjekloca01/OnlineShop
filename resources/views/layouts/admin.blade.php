@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="author" content="surfside media" />
+  <meta name="author" content="online shop" />
   <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/animation.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
@@ -21,7 +21,8 @@
   <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
   <link rel="apple-touch-icon-precomposed" href="{{ asset('images/favicon.ico') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">@stack("styles")
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+  @stack("styles")
 </head>
 
 <body class="body">
@@ -451,11 +452,12 @@
                             </div>
                         </div>
                     </div>
-                    
-                    @yield('content')
-                    
-                    <div class="bottom-page">
-                        <div class="body-text">Copyright © 2025 Miljan Sjekloća</div>
+                    <div class="main-content">
+                        @yield('content')
+                        
+                        <div class="bottom-page">
+                            <div class="body-text">Copyright © 2025 Miljan Sjekloća</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -568,4 +570,5 @@
     </script>
     @stack("scripts")
 </body>
+
 </html>
