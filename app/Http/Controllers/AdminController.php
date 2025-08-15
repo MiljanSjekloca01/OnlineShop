@@ -159,4 +159,13 @@ class AdminController extends Controller
         return redirect()->route('admin.categories')->with('status','Category has been updated sucesfully!');
 
     }
+
+    public function category_delete($id){
+        $category = Category::find($id);
+        if(File::exists(public_path('uploads/categories').'/'.$category->image)){
+            File::delete(public_path('uploads/categories').'/'.$category->image);
+        }
+        $category->delete();
+        return redirect()->route('admin.categories')->with('status','Category has been deleted sucesfully!');
+    }
 }
