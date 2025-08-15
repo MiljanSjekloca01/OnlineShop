@@ -38,7 +38,7 @@
 
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href='index.html' id="site-logo-inner">
+                        <a href='{{ route('home.index')}}' id="site-logo-inner">
                             <img class="" id="logo_header_1" alt="" src="{{ asset('images/logo/logo.png') }}"
                                 data-light="{{ asset('images/logo/logo.png') }}" data-dark="{{ asset('images/logo/logo.png') }}">
                         </a>
@@ -103,7 +103,7 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href='add-category.html' class="">
+                                            <a href='{{ route('admin.category.add')}}' class="">
                                                 <div class="text">New Category</div>
                                             </a>
                                         </li>
