@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Laravel\Facades\Image;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
@@ -88,5 +89,11 @@ class AdminController extends Controller
         $img->resize(124,124,function($constraint){
             $constraint->aspectRatio();
         })->save($destinationPath.'/'.$imageName);
+    }
+
+    public function categories(){
+        $categories = Category::orderBy('id','DESC')->paginate(10);
+
+        return view('admin.categories',compact('categories'));
     }
 }
