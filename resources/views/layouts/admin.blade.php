@@ -61,7 +61,7 @@
                         <div class="center-item">
                             <ul class="menu-list">
                                 <li class="menu-item has-children">
-                                    <a href='javascript:void(0);' class="menu-item-button">
+                                    <a href='{{ route('admin.products') }}' class="menu-item-button">
                                         <div class="icon"><i class="icon-shopping-cart"></i></div>
                                         <div class="text">Products</div>
                                     </a>
