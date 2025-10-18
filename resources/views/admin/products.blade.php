@@ -74,7 +74,7 @@
                             <td>{{ $product->category->name }}</td>
                             <td>{{ $product->brand->name }}</td>
                             <td>{{ $product->feature == 0 ? "No" : "Yes" }}</td>
-                            <td>{{ $product->stock }}</td>
+                            <td>{{ $product->stock_status }}</td>
                             <td>{{ $product->quantity }}</td>
                             <td>
                                 <div class="list-icon-function">
@@ -83,7 +83,7 @@
                                             <i class="icon-eye"></i>
                                         </div>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('admin.product.edit', ['id'=>$product->id ]) }}">
                                         <div class="item edit">
                                             <i class="icon-edit-3"></i>
                                         </div>
