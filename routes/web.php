@@ -16,6 +16,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
 
+//Cart
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart/add',[CartController::class,'addToCart'])->name('cart.add');
 Route::put('cart/increase-quantity/{rowId}',[CartController::class,'increaseCartQuantity'])->name('cart.qty.increase');
@@ -23,7 +24,10 @@ Route::put('cart/decrease-quantity/{rowId}',[CartController::class,'decreaseCart
 Route::delete('/cart/remove/{rowId}',[CartController::class,'removeItem'])->name('cart.item.remove');
 Route::delete('/cart/clear',[CartController::class,'emptyCart'])->name('cart.empty');
 
+//Wishlist
 Route::post('/wishlist/add',[WishlistController::class,'add_to_wishlist'])->name('wishlist.add');
+Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlist.index');
+
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
