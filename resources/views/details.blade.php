@@ -131,10 +131,24 @@
           </form>
           @endif
           <div class="product-single__addtolinks">
-            <a href="#" class="menu-link menu-link_us-s add-to-wishlist"><svg width="16" height="16" viewBox="0 0 20 20"
+            @if(Cart::instance('wishlist')->content()->where('id',$product->id)->count() > 0)
+            <a href="javascript:void(0)" class="menu-link menu-link_us-s add-to-wishlist filled-heart"><svg width="16" height="16" viewBox="0 0 20 20"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <use href="#icon_heart" />
+            </svg><span>Remove from Wishlist</span></a>
+            @else
+            <form method="POST" action="{{route('wishlist.add')}}" id="wishlist-form">
+            @csrf
+              <input type="hidden" name="id" value="{{$product->id}}">
+              <input type="hidden" name="name" value="{{$product->name}}">
+              <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+              <input type="hidden" name="quantity" value="1">
+              <a href="javascript:void(0)" class="menu-link menu-link_us-s add-to-wishlist" onclick="document.getElementById('wishlist-form').submit();"><svg width="16" height="16" viewBox="0 0 20 20"
                 fill="none" xmlns="http://www.w3.org/2000/svg">
                 <use href="#icon_heart" />
               </svg><span>Add to Wishlist</span></a>
+            </form>
+            @endif
             <share-button class="share-button">
               <button class="menu-link menu-link_us-s to-share border-0 bg-transparent d-flex align-items-center">
                 <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -423,7 +437,7 @@
                   <input type="hidden" name="quantity" value="1">
                   <input type="hidden" name="id" value="{{ $rproduct->id}}">
                   <input type="hidden" name="name" value="{{ $rproduct->name}}">
-                  <input type="hidden" name="price" value="{{ $prroduct->sale_price == '' ? $rproduct->reqular_price : $rproduct->sale_price}}">
+                  <input type="hidden" name="price" value="{{ $product->sale_price == '' ? $rproduct->reqular_price : $rproduct->sale_price}}">
                   </form>
                   @endif
                 </div>
@@ -441,12 +455,28 @@
                     </span>
                   </div>
   
-                  <button class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                    title="Add To Wishlist">
-                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <use href="#icon_heart" />
-                    </svg>
-                  </button>
+                  @if(Cart::instance('wishlist')->content()->where('id',$rproduct->id)->count() > 0)
+                  <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist filled-heart"
+                  title="Add To Wishlist">
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon_heart" />
+                  </svg>
+                </button>
+                  @else
+                    <form method="POST" action="{{route('wishlist.add')}}">
+                    @csrf
+                      <input type="hidden" name="id" value="{{$rproduct->id}}">
+                      <input type="hidden" name="name" value="{{$rproduct->name}}">
+                      <input type="hidden" name="price" value="{{$rproduct->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
+                        title="Add To Wishlist">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <use href="#icon_heart" />
+                        </svg>
+                      </button>
+                   </form>
+                  @endif
                 </div>
               </div>
             @endforeach
@@ -471,3 +501,13 @@
     </section><!-- /.products-carousel container -->
   </main>
 @endsection
+
+
+
+@push('styles')
+<style>
+  .filled-heart{
+    color: orange;
+  }
+</style>
+@endpush
