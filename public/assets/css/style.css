@@ -12126,6 +12126,7 @@ textarea.form-control-lg {
 .menu-link_us-s:hover:after, .menu-link_us-s.menu-link_active:after {
   width: 2em; }
 
+
 .default-menu {
   position: absolute;
   top: calc(100% + .75rem);
@@ -13890,6 +13891,20 @@ textarea.form-control-lg {
       width: 50%; }
     .product-single__addtolinks > a .flaticon, .product-single__addtolinks > .share-button > button .flaticon {
       font-size: 1rem; }
+
+      .product-single__addtolinks > form a, .product-single__addtolinks > .share-button > button {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        padding: 0 0 0.625rem;
+        text-transform: uppercase;
+        border: 0;
+        background-color: transparent;
+        font-weight: 500; }
+        .product-single__addtolinks > form a:hover:after, .product-single__addtolinks > .share-button > button:hover:after {
+          width: 50%; }
+        .product-single__addtolinks > form a .flaticon, .product-single__addtolinks > .share-button > button .flaticon {
+          font-size: 1rem; }
 .product-single__meta-info {
   font-size: 0.8125rem;
   line-height: 1.5rem;
