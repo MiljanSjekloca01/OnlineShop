@@ -19,10 +19,12 @@ Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->na
 //Cart
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart/add',[CartController::class,'addToCart'])->name('cart.add');
-Route::put('cart/increase-quantity/{rowId}',[CartController::class,'increaseCartQuantity'])->name('cart.qty.increase');
-Route::put('cart/decrease-quantity/{rowId}',[CartController::class,'decreaseCartQuantity'])->name('cart.qty.decrease');
+Route::put('/cart/increase-quantity/{rowId}',[CartController::class,'increaseCartQuantity'])->name('cart.qty.increase');
+Route::put('/cart/decrease-quantity/{rowId}',[CartController::class,'decreaseCartQuantity'])->name('cart.qty.decrease');
 Route::delete('/cart/remove/{rowId}',[CartController::class,'removeItem'])->name('cart.item.remove');
 Route::delete('/cart/clear',[CartController::class,'emptyCart'])->name('cart.empty');
+//Cart Coupon
+Route::post('/cart/apply-coupon',[CartController::class,'apply_coupon_code'])->name('cart.coupon.apply');
 
 //Wishlist
 Route::post('/wishlist/add',[WishlistController::class,'add_to_wishlist'])->name('wishlist.add');
