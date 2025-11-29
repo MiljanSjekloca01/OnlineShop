@@ -37,6 +37,9 @@ Route::post('/wishlist/move-to-cart/{rowId}',[WishlistController::class,'move_to
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
+
+    //Checkout
+    Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout');
 });
 
 Route::middleware(['auth', AuthAdmin::class])->group(function(){
