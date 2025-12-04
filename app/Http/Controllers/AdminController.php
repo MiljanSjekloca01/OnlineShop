@@ -11,6 +11,7 @@ use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Coupon;
+use App\Models\Order;
 
 class AdminController extends Controller
 {
@@ -444,5 +445,15 @@ class AdminController extends Controller
         $coupon->delete();
         return redirect()->route('admin.coupons')->with('status','Coupon has been deleted successfully');
     }
+
+
+    // Orders
+
+    public function orders(){
+        $orders = Order::orderBy('created_at','DESC')->paginate();
+        return view('admin.orders',compact('orders'));
+    }
+
+
 }
 
