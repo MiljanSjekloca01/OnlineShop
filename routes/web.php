@@ -78,5 +78,5 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
 
     // Orders
     Route::get('/admin/orders',[AdminController::class,'orders'])->name('admin.orders');
-
+    Route::get('/admin/orders/{order}/details', [AdminController::class, 'order_details'])->name('admin.order.details');
 });

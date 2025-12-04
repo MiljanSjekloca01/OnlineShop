@@ -12,6 +12,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Transaction;
 
 class AdminController extends Controller
 {
@@ -450,10 +452,14 @@ class AdminController extends Controller
     // Orders
 
     public function orders(){
-        $orders = Order::orderBy('created_at','DESC')->paginate();
+        $orders = Order::orderBy('created_at','DESC')->paginate(12);
         return view('admin.orders',compact('orders'));
     }
 
-
+    public function order_details(Order $order){
+        $orderItems = $order->orderItems()->paginate(12);
+        $transaction = $order->transaction;
+        return view('admin.order-details',compact('order','orderItems','transaction'));
+    }
 }
 

@@ -58,16 +58,16 @@
                                 <th>{{ $order->id }}</td>
                                 <th>{{ $order->name }}</td>
                                 <th>{{ $order->phone }}</td>
-                                <th>{{ $order->subtotal }}</td>
-                                <th>{{ $order->tax }}</td>
-                                <th>{{ $order->total }}</td>
+                                <th>${{ $order->subtotal }}</td>
+                                <th>${{ $order->tax }}</td>
+                                <th>${{ $order->total }}</td>
 
                                 <th>{{ $order->status }}</td>
                                 <th>{{ $order->created_at }}</td>
                                 <th>{{ $order->orderItems->count() }}</td>
                                 <th>{{ $order->delivered_date ? $order->delivered_date : "To be delivered"}}</td>
                                 <th>
-                                    <a href="order-details.html">
+                                    <a href="{{ route('admin.order.details',$order)}}">
                                         <div class="list-icon-function view-icon">
                                             <div class="item eye">
                                                 <i class="icon-eye"></i>
