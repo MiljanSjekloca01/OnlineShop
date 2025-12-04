@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function(){
 
     //Checkout
     Route::get('/checkout',[CartController::class,'checkout'])->name('cart.checkout');
+    Route::post('/place-an-order',[CartController::class,'place_an_order'])->name('cart.place.an.order');
+    Route::get('/order-confirmation/{order}',[CartController::class,'order_confirmation'])->name('cart.order.confirmation');
 });
 
 Route::middleware(['auth', AuthAdmin::class])->group(function(){
