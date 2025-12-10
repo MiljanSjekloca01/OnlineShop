@@ -19,7 +19,7 @@
             </ul>
         </div>
 
-        <div class="wg-box">
+        <div class="wg-box mt-5 mb-5">
             <div class="flex items-center justify-between gap10 flex-wrap">
                 <div class="wg-filter flex-grow">
                     <h5>Order Details</h5>
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div class="wg-box">
+        <div class="wg-box mt-5 mb-5">
             <div class="flex items-center justify-between gap10 flex-wrap">
                 <div class="wg-filter flex-grow">
                     <h5>Ordered Items</h5>

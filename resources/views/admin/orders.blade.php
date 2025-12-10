@@ -55,18 +55,18 @@
                         <tbody>
                             @foreach ($orders as $order)
                             <tr>
-                                <th>{{ $order->id }}</td>
-                                <th>{{ $order->name }}</td>
-                                <th>{{ $order->phone }}</td>
-                                <th>${{ $order->subtotal }}</td>
-                                <th>${{ $order->tax }}</td>
-                                <th>${{ $order->total }}</td>
+                                <td>{{ $order->id }}</td>
+                                <td>{{ $order->name }}</td>
+                                <td>{{ $order->phone }}</td>
+                                <td>${{ $order->subtotal }}</td>
+                                <td>${{ $order->tax }}</td>
+                                <td>${{ $order->total }}</td>
 
-                                <th>{{ $order->status }}</td>
-                                <th>{{ $order->created_at }}</td>
-                                <th>{{ $order->orderItems->count() }}</td>
-                                <th>{{ $order->delivered_date ? $order->delivered_date : "To be delivered"}}</td>
-                                <th>
+                                <td>{{ $order->status }}</td>
+                                <td>{{ $order->created_at }}</td>
+                                <td>{{ $order->orderItems->count() }}</td>
+                                <td>{{ $order->delivered_date ? $order->delivered_date : "To be delivered"}}</td>
+                                <td>
                                     <a href="{{ route('admin.order.details',$order)}}">
                                         <div class="list-icon-function view-icon">
                                             <div class="item eye">
