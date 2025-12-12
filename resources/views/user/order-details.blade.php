@@ -19,6 +19,7 @@
                                 <a class="btn-lg btn-red back-btn-radius" href="{{ route('user.orders')}}">Back</a>
                             </div>
                         </div>
+                        @if (Session::has('status')) <p class="alert alert-success mt-2"> {{ Session::get('status') }} </p> @endif
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -157,7 +158,7 @@
                                     @if($transaction->status == 'approved')
                                         <span class="badge bg-success">Approved</span>
                                     @elseif($transaction->status == 'declined')
-                                        <span class="badge bg-danger">Approved</span>
+                                        <span class="badge bg-danger">Declined</span>
                                     @elseif($transaction->status == 'refunded')
                                         <span class="badge bg-secondary">Refunded</span>
                                     @else
@@ -168,12 +169,43 @@
                         </tbody>
                     </table>
                 </div>
+                @if ($order->status == "ordered")
+                    <div class="wg-box mt-5 mb-5 text-right">
+                        <form action="{{ route('user.order.cancel',$order)}}" method="POST">
+                        @csrf
+                        @method('PUT')
+                            <button id="cancel" type="button" class="btn btn-red back-btn-radius">Cancel Order</button>
+                        </form>
+                    </div>
+                @endif
             </div>             
         </div>
     </section>
 </main>
 @endsection
 
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('#cancel').on('click',function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+                swal({
+                    title: "Are you sure?",
+                    text: "Are you sure u want to cancel this order ?",
+                    type: "warning",
+                    buttons:["No","Yes"],
+                    confirmButtonColor:"#dc3545"
+                }).then(function(result){
+                    if(result){
+                        form.submit();
+                    }
+                })
+            });
+        });
+    </script>
+@endpush
 
 @push('styles')
 <style>

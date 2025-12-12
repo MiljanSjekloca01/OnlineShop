@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -24,5 +25,21 @@ class UserController extends Controller
         $orderItems = $order->orderItems()->paginate(12);
         $transaction = $order->transaction;
         return view('user.order-details',compact('order','orderItems','transaction'));
+    }
+
+    public function cancel_order(Order $order){
+        if($order->status == 'ordered'){
+            $order->status = 'canceled';
+            $order->canceled_date = Carbon::now();
+            $order->save();
+            if ($order->transaction) {
+                $order->transaction->status = 'declined';
+                $order->transaction->save();
+            }
+            
+            return back()->with('status','Your order has been canceled');
+        }else{
+            return back()->with('status','You cannot cancel this order!');
+        }
     }
 }

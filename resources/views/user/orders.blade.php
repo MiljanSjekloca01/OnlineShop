@@ -38,7 +38,15 @@
                                     <td class="text-center">${{ $order->tax }}</td>
                                     <td class="text-center">${{ $order->total }}</td>
                                     
-                                    <td>{{ $order->status }}</td>
+                                    <td>
+                                        @if($order->status == "delivered")
+                                            <span class="badge bg-success">Delivered</span>
+                                        @elseif($order->status == "canceled")
+                                            <span class="badge bg-danger">Canceled</span>
+                                        @else
+                                            <span class="badge bg-warning">Ordered</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $order->created_at }}</td>
                                     <td>{{ $order->orderItems->count() }}</td>
                                     <td>{{ $order->delivered_date ? $order->delivered_date : "To be delivered"}}</td>
@@ -60,7 +68,6 @@
                     {{ $orders->links('pagination::bootstrap-5')}}
                 </div>
             </div>
-            
         </div>
     </section>
 </main>
