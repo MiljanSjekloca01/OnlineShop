@@ -14,11 +14,12 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Transaction;
+use App\Models\Slide;
 
 class AdminController extends Controller
 {
     public function index(){
-        return view("admin.index");
+        return view('admin.index');
     }
 
     public function brands(){
@@ -27,7 +28,7 @@ class AdminController extends Controller
     }
 
     public function add_brand(){
-        return view("admin.brand-add");
+        return view('admin.brand-add');
     }
 
     public function brand_store(Request $request){
@@ -42,7 +43,7 @@ class AdminController extends Controller
         $image = $request->file('image');
         $file_extension = $request->file('image')->extension();
         $file_name = Carbon::now()->timestamp.'.'.$file_extension;
-        $this->GenerateBrandThumbailsImage($image,$file_name);
+        $this->GenerateThumbnailImage($image,$file_name,'brands',124,124);
         $brand->image = $file_name;
         $brand->save();
         return redirect()->route('admin.brands')->with('status','Brand has been created sucesfully!');
@@ -70,7 +71,7 @@ class AdminController extends Controller
             $image = $request->file('image');
             $file_extension = $request->file('image')->extension();
             $file_name = Carbon::now()->timestamp.'.'.$file_extension;
-            $this->GenerateBrandThumbailsImage($image,$file_name);
+            $this->GenerateThumbnailImage($image,$file_name,'brands',124,124);
             $brand->image = $file_name;
         }
         $brand->save();
@@ -85,15 +86,6 @@ class AdminController extends Controller
         }
         $brand->delete();
         return redirect()->route('admin.brands')->with('status','Brand has been deleted sucesfully!');
-    }
-
-    public function GenerateBrandThumbailsImage($image,$imageName){
-        $destinationPath = public_path('uploads/brands');
-        $img = Image::read($image->path());
-        $img->cover(124,124,'top');
-        $img->resize(124,124,function($constraint){
-            $constraint->aspectRatio();
-        })->save($destinationPath.'/'.$imageName);
     }
 
     public function categories(){
@@ -120,20 +112,12 @@ class AdminController extends Controller
         $image = $request->file('image');
         $file_extension = $request->file('image')->extension();
         $file_name = Carbon::now()->timestamp.'.'.$file_extension;
-        $this->GenerateCategoryThumbailsImage($image,$file_name);
+        $this->GenerateThumbnailImage($image,$file_name,'categories',124,124);
         $category->image = $file_name;
         $category->save();
         return redirect()->route('admin.categories')->with('status','Category has been created sucesfully!');
     }
 
-    public function GenerateCategoryThumbailsImage($image,$imageName){
-        $destinationPath = public_path('uploads/categories');
-        $img = Image::read($image->path());
-        $img->cover(124,124,'top');
-        $img->resize(124,124,function($constraint){
-            $constraint->aspectRatio();
-        })->save($destinationPath.'/'.$imageName);
-    }
 
     public function category_edit($id){
         $category = Category::find($id);
@@ -157,7 +141,7 @@ class AdminController extends Controller
             $image = $request->file('image');
             $file_extension = $request->file('image')->extension();
             $file_name = Carbon::now()->timestamp.'.'.$file_extension;
-            $this->GenerateCategoryThumbailsImage($image,$file_name);
+            $this->$this->GenerateThumbnailImage($image,$file_name,'categories',124,124);
             $category->image = $file_name;
         }
         $category->save();
@@ -231,7 +215,7 @@ class AdminController extends Controller
         }
 
         $gallery_arr = array();
-        $gallery_images = "";
+        $gallery_images = '';
         $counter = 1;
 
         if($request->hasFile('images')){
@@ -241,7 +225,7 @@ class AdminController extends Controller
                 $gextension = $file->getClientOriginalExtension();
                 $gcheck = in_array($gextension,$allowedFileExtensions);
                 if($gcheck){
-                    $gFileName = $current_timestamp . "-" . $counter . "." . $gextension;
+                    $gFileName = $current_timestamp . '-' . $counter . '.' . $gextension;
                     $this->GenerateProductThumbnailImage($file,$gFileName);
                     array_push($gallery_arr,$gFileName);
                     $counter = $counter + 1;
@@ -326,7 +310,7 @@ class AdminController extends Controller
         }
 
         $gallery_arr = array();
-        $gallery_images = "";
+        $gallery_images = '';
         $counter = 1;
 
         if($request->hasFile('images')){
@@ -347,7 +331,7 @@ class AdminController extends Controller
                 $gextension = $file->getClientOriginalExtension();
                 $gcheck = in_array($gextension,$allowedFileExtensions);
                 if($gcheck){
-                    $gFileName = $current_timestamp . "-" . $counter . "." . $gextension;
+                    $gFileName = $current_timestamp . '-' . $counter . '.' . $gextension;
                     $this->GenerateProductThumbnailImage($file,$gFileName);
                     array_push($gallery_arr,$gFileName);
                     $counter = $counter + 1;
@@ -384,7 +368,7 @@ class AdminController extends Controller
         }
 
         $product->delete();
-        return redirect()->route('admin.products')->with("status","Product has been deleted successfully");
+        return redirect()->route('admin.products')->with('status','Product has been deleted successfully');
 
     }
 
@@ -485,6 +469,55 @@ class AdminController extends Controller
         }
     
         return back()->with('status', 'Order status updated successfully');
+    }
+
+
+    // Slider
+    public function slides(){
+        $slides = Slide::orderBy('id','DESC')->paginate(12);
+        return view('admin.slides',compact('slides'));
+    }
+
+    public function add_slide(){
+        return view('admin.slide-add');
+    }
+
+    public function store_slide(Request $request){
+        $request->validate([
+            'tagline' => 'required',
+            'title'=>'required',
+            'subtitle'=>'required',
+            'link'=>'required',
+            'status'=>'required',
+            'image'=>'required|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        $slide = new Slide();
+        $slide->tagline = $request->tagline;
+        $slide->title = $request->title;
+        $slide->subtitle = $request->subtitle;
+        $slide->link = $request->link;
+        $slide->status = $request->status;
+
+        $image = $request->file('image');
+        $file_extension = $request->file('image')->extension();
+        $file_name = Carbon::now()->timestamp.'.'.$file_extension;
+        $this->GenerateThumbnailImage($image,$file_name,'slides',400,690);
+        $slide->image = $file_name;
+        $slide->save();
+
+        return redirect()->route('admin.slides')->with('statuts','Slide added successfully!');
+    }
+
+    // Generate Thumbnail Image Function 
+
+    public function GenerateThumbnailImage($image,$imageName,$folder,$width,$height){
+        $destinationPath = public_path('uploads/' . $folder);
+        $img = Image::read($image->path());
+        $img->cover($width,$height,'top');
+        $img->resize($width,$height,function($constraint){
+            $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$imageName);
     }
 }
 

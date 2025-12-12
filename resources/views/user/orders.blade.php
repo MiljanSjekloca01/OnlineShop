@@ -49,7 +49,7 @@
                                     </td>
                                     <td>{{ $order->created_at }}</td>
                                     <td>{{ $order->orderItems->count() }}</td>
-                                    <td>{{ $order->delivered_date ? $order->delivered_date : "To be delivered"}}</td>
+                                    <td>{{ $order->delivered_date}}</td>
                                     <td class="text-center">
                                         <a href="{{ route('user.order.details',$order)}}">
                                         <div class="list-icon-function view-icon">
