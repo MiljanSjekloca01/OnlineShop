@@ -27,6 +27,7 @@
                 <a class="tf-button style-1 w208" href="{{ route('admin.orders')}}">Back</a>
             </div>
             <div class="table-responsive">
+                @if (Session::has('status')) <p class="alert alert-success"> {{ Session::get('status') }} </p> @endif
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>Order No</th>
@@ -70,7 +71,7 @@
                     <h5>Ordered Items</h5>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive flexible-table">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -141,7 +142,7 @@
             </div>
         </div>
 
-        <div class="wg-box mt-5">
+        <div class="wg-box mt-5 mb-5">
             <h5>Transactions</h5>
             <table class="table table-striped table-bordered table-transaction">
                 <tbody>
@@ -174,6 +175,26 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="wg-box mt-5 mb-5">
+            <h5>Update Order Status</h5>
+            <form action="{{ route('admin.order.status.update',$order)}}" method="POST">
+            @csrf
+            @method('PUT')
+                <div>
+                    <div class="select">
+                        <select name="order_status" id="order_status">
+                            <option value="ordered" {{$order->status == 'ordered' ? 'selected' : ''}}>Ordered</option>
+                            <option value="delivered" {{$order->status == 'delivered' ? 'selected' : ''}}>Delivered</option>
+                            <option value="canceled" {{$order->status == 'canceled' ? 'selected' : ''}}>Canceled</option>
+                        </select>
+                    </div>
+                    <div class="mt-5">
+                        <button type="submit" class="btn btn-primary tf-button w208">Update Status</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
@@ -183,6 +204,14 @@
     <style>
         .table-transaction>tbody>tr:nth-of-type(odd) {
             --bs-table-accent-bg: #fff !important;
+        }
+
+        .flexible-table th:nth-child(2), .flexible-table td:nth-child(2){
+            width: auto;
+        }
+
+        .flexible-table th:nth-child(1), .flexible-table td:nth-child(1){
+            width: 230px;
         }
     </style>
 @endpush
