@@ -509,6 +509,49 @@ class AdminController extends Controller
         return redirect()->route('admin.slides')->with('statuts','Slide added successfully!');
     }
 
+    public function edit_slide(Slide $slide){
+        return view('admin.slide-edit',compact('slide'));
+    }
+
+    public function update_slide(Request $request, Slide $slide){
+        $request->validate([
+            'tagline' => 'required',
+            'title'=>'required',
+            'subtitle'=>'required',
+            'link'=>'required',
+            'status'=>'required',
+            'image'=>'mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        $slide->tagline = $request->tagline;
+        $slide->title = $request->title;
+        $slide->subtitle = $request->subtitle;
+        $slide->link = $request->link;
+        $slide->status = $request->status;
+
+        if($request->hasFile('image')){
+            if(File::exists(public_path('uploads/slides/').'/'.$slide->image)){
+                File::delete(public_path('uploads/slides/').'/'.$slide->image);
+            }
+            $image = $request->file('image');
+            $file_extension = $request->file('image')->extension();
+            $file_name = Carbon::now()->timestamp.'.'.$file_extension;
+            $this->GenerateThumbnailImage($image,$file_name,'slides',400,690);
+            $slide->image = $file_name;
+        }
+        $slide->save();
+        return redirect()->route('admin.slides')->with('status','Slide updated successfully!');
+    }
+
+    public function delete_slide(Slide $slide){
+        if(File::exists(public_path('uploads/slides/').'/'.$slide->image)){
+            File::delete(public_path('uploads/slides/').'/'.$slide->image);
+        }
+        $slide->delete();
+        return back()->with('status','Slide deleted successfully!');
+    }
+
+
     // Generate Thumbnail Image Function 
 
     public function GenerateThumbnailImage($image,$imageName,$folder,$width,$height){

@@ -11,7 +11,7 @@
             </ul>
         </div>
         @if (Session::has('status')) <p class="alert alert-success mt-2 mb-2"> {{ Session::get('status') }} </p> @endif
-        <div class="wg-box">
+        <div class="wg-box mt-5">
             <div class="flex items-center justify-between gap10 flex-wrap">
                 <div class="wg-filter flex-grow">
                     <form class="form-search">
@@ -45,22 +45,24 @@
                         <tr>
                             <td>{{ $slide->id }}</td>
                             <td>
-                                <div class="image">
+                                <div class="image center">
                                     <img src="{{ asset('uploads/slides')}}/{{$slide->image}}" alt="{{ $slide->title }}" class="image">
                                 </div>
                             </td>
                             <td>{{ $slide->tagline }}</td>
                             <td>{{ $slide->title }}</td>
                             <td>{{ $slide->subtitle }}</td>
-                            <td>{{ $slide->link }}</td>
+                            <td class="slide-link">{{ $slide->link }}</td>
                             <td>
-                                <div class="list-icon-function">
-                                    <a href="#">
+                                <div class="list-icon-function center-icons">
+                                    <a href="{{ route('admin.slide.edit',$slide)}}">
                                         <div class="item edit">
                                             <i class="icon-edit-3"></i>
                                         </div>
                                     </a>
-                                    <form action="" method="POST">
+                                    <form action="{{ route('admin.slide.delete',$slide)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
                                         <div class="item text-danger delete">
                                             <i class="icon-trash-2"></i>
                                         </div>
@@ -85,7 +87,43 @@
 @push('styles')
     <style>
         .admin-table-slides th:nth-child(2), .admin-table-slides td:nth-child(2){
-            width:auto;
+            width:100px;
+        }
+
+        .center{
+            margin:auto;
+        }
+
+        .admin-table-slides th:nth-child(1), .admin-table-slides td:nth-child(1){
+            width:100px;
+        }
+
+        .admin-table-slides th:nth-child(6), .admin-table-slides td:nth-child(6){
+            width: 220px !important;
         }
     </style>
+@endpush
+
+
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('.delete').on('click',function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+                swal({
+                    title: "Are you sure?",
+                    text: "Are you sure u want to delete this record ?",
+                    type: "warning",
+                    buttons:["No","Yes"],
+                    confirmButtonColor:"#dc3545"
+                }).then(function(result){
+                    if(result){
+                        form.submit();
+                    }
+                })
+            });
+        });
+    </script>
 @endpush

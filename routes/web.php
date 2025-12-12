@@ -89,4 +89,7 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
     Route::get('/admin/slides',[AdminController::class,'slides'])->name('admin.slides');
     Route::get('/admin/slide/add',[AdminController::class,'add_slide'])->name('admin.slide.add');
     Route::post('admin/slide/store',[AdminController::class,'store_slide'])->name('admin.slide.store');
+    Route::get('admin/slide/{slide}/edit',[AdminController::class,'edit_slide'])->name('admin.slide.edit');
+    Route::put('admin/slide/{slide}/update',[AdminController::class,'update_slide'])->name('admin.slide.update');
+    Route::delete('admin/slide/{slide}/delete',[AdminController::class,'delete_slide'])->name('admin.slide.delete');
 });
