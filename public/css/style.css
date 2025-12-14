@@ -1657,14 +1657,15 @@ a:hover, a:focus {
   background-color: #2377FC;
 }
 .block-legend .dot.t2 {
-  background-color: #D3E4FE;
+  background-color: #12d529;
 }
 .block-legend .dot.t3 {
-  background-color: #FF5200;
+  background-color: #ff0400;
 }
 .block-legend .dot.t4 {
-  background-color: #8F77F3;
+  background-color: #f17d09;
 }
+
 .block-legend .dot-1 {
   width: 38px;
   height: 10px;
