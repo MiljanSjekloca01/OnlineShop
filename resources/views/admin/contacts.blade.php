@@ -72,7 +72,7 @@
                                                 @method('PUT')
                                                 <label class="switch">
                                                     <input type="checkbox" name="is_read" onchange="this.form.submit()" {{ $contact->is_read ? 'checked' : '' }}>
-                                                    <span class="slider round"></span>
+                                                    <span class="mr_slider round"></span>
                                                 </label>
                                             </form>
                                             <form action="{{ route('admin.contacts.delete',$contact)}}" method="POST">
@@ -142,7 +142,7 @@
             vertical-align: middle;
         }
         .switch input { display: none; }
-        .slider {
+        .mr_slider {
             position: absolute;
             cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -150,7 +150,7 @@
             transition: .4s;
             border-radius: 15px;
         }
-        .slider:before {
+        .mr_slider:before {
             position: absolute;
             content: "";
             height: 11px;
@@ -161,7 +161,7 @@
             transition: .4s;
             border-radius: 50%;
         }
-        input:checked + .slider { background-color: #4caf50; }
-        input:checked + .slider:before { transform: translateX(15px); }
+        input:checked + .mr_slider { background-color: #4caf50; }
+        input:checked + .mr_slider:before { transform: translateX(15px); }
     </style>
 @endpush

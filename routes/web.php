@@ -101,4 +101,8 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
     Route::get('/admin/contacts',[AdminController::class,'contacts'])->name('admin.contacts');
     Route::delete('/admin/contacts/{contact}/delete',[AdminController::class,'contact_delete'])->name('admin.contacts.delete');
     Route::put('/admin/contacts/{contact}/read', [AdminController::class,'markRead'])->name('admin.contacts.read');
+
+    //Search
+    Route::get('/search',[HomeController::class,'search'])->name('home.search');
+    
 });

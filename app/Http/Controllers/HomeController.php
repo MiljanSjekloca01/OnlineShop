@@ -19,6 +19,7 @@ class HomeController extends Controller
         return view('index',compact('slides','categories','products_on_sale','featured_products'));
     }
 
+    // Contact Functions 
 
     public function contact_us(){
         return view('contact');
@@ -40,5 +41,14 @@ class HomeController extends Controller
         $contact->save();
 
         return redirect()->back()->with('success', 'Your message has been sent successfully');
+    }
+
+
+    // Search
+
+    public function search(Request $request){
+        $query = $request->input('query');
+        $results = Product::where('name','LIKE',"%{$query}%")->take(8)->get();
+        return response()->json($results);
     }
 }
