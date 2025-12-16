@@ -12,8 +12,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Coupon;
 use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\Transaction;
+use App\Models\Contact;
 use App\Models\Slide;
 use Illuminate\Support\Facades\DB;
 
@@ -612,6 +611,25 @@ class AdminController extends Controller
         $img->resize($width,$height,function($constraint){
             $constraint->aspectRatio();
         })->save($destinationPath.'/'.$imageName);
+    }
+
+
+    // Contact Us / Contact Us Messages
+
+    public function contacts(){
+        $contacts = Contact::orderBy('created_at','DESC')->paginate(10);
+        return view('admin.contacts',compact('contacts'));
+    }
+
+    public function contact_delete(Contact $contact){
+        $contact->delete();
+        return back()->with('status','Contact deleted successfully!');
+    }
+
+    public function markRead(Contact $contact, Request $request){
+        $contact->is_read = $request->has('is_read');
+        $contact->save();
+        return back();
     }
 }
 

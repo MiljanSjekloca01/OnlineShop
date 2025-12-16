@@ -68,12 +68,6 @@ body {
     min-width: 1200px;
 }
 
-.table-striped th:nth-child(2),
-.table-striped td:nth-child(2) {
-    width: 250px;
-    padding-bottom: 18px;
-}
-
 .pname {
     display: flex;
     gap: 13px;
@@ -149,7 +143,6 @@ body {
 .table-striped th:nth-child(2),
 .table-striped td:nth-child(2) {
     width: 250px;
-    padding-bottom: 18px;
 }
 
 .pname {
