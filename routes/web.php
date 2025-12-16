@@ -20,6 +20,9 @@ Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->na
 Route::get('/contact-us',[HomeController::class,'contact_us'])->name('home.contact');
 Route::post('/contact/store',[HomeController::class,'contact_store'])->name('home.contact.store');
 
+//Search
+Route::get('/search',[HomeController::class,'search'])->name('home.search');
+
 //Cart
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart/add',[CartController::class,'addToCart'])->name('cart.add');
@@ -102,7 +105,6 @@ Route::middleware(['auth', AuthAdmin::class])->group(function(){
     Route::delete('/admin/contacts/{contact}/delete',[AdminController::class,'contact_delete'])->name('admin.contacts.delete');
     Route::put('/admin/contacts/{contact}/read', [AdminController::class,'markRead'])->name('admin.contacts.read');
 
-    //Search
-    Route::get('/search',[HomeController::class,'search'])->name('home.search');
-    
+    //Admin Search
+    Route::get('/admin/search',[AdminController::class,'search'])->name('admin.search');
 });
