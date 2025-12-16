@@ -16,6 +16,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
 
+//Contact
+Route::get('/contact-us',[HomeController::class,'contact_us'])->name('home.contact');
+Route::post('/contact/store',[HomeController::class,'contact_store'])->name('home.contact.store');
+
 //Cart
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart/add',[CartController::class,'addToCart'])->name('cart.add');
